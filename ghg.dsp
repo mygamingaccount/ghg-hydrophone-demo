@@ -39,12 +39,12 @@ with {
 
 // Each hydrophone in the group is represented by a delay as the wavefront passes through the ship's hull
 // A smooth subsample-accuracy delay is used for this simulation
-one_hydrophone(h,cn) = de.fdelaylti(4, predelay+maxdelay, element_delay)
+one_hydrophone(h,cn) = de.fdelaylti(4, predelay+maxdelay, predelay+element_delay)
 with {
     predelay = 2; // because of the allpass fractional delay, total delay must be >(order-1)/2
     maxdelay      = ma.SR*glen/c * max(h, nElements-h-1) / nElements; // longest delay for each element
     element_delay = ma.SR*glen/c * abs(cos(brg)) * index/nElements;
-    index = h , nElements-h-1 : select2(cos(brg)<0); // flip the delay line when contact is aft of the beam
+    index = h, nElements-h-1 : select2(cos(brg)<0); // flip the delay line when contact is aft of the beam
     brg = cbrg(cn) * ma.PI / 180; // contact bearing off the bow in rads
 };
 
