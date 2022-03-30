@@ -27,7 +27,7 @@ with {
     baffle =
         baffle_attenuation , // opposite side
 	(a1*brg)+b1        : select2((brg>=10) & (brg<20)),
-        1                  : select2(brg>=20),
+        1                  : select2((brg>=20) & (brg<160)),
         (a2*brg)+b2        : select2((brg>=160) & (brg<170)),
         baffle_attenuation : select2(brg>=170);
     a1 = (1-baffle_attenuation)/10;
