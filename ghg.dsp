@@ -39,11 +39,12 @@ with {
 // Hydrophone contact rotator - delays the incoming signal depending on the bearing using fractional sample delay
 // Each hydrophone in the group is represented by a delay as the wavefront passes through the ship's hull
 // A smooth subsample-accuracy delay is used for this simulation
-one_hydrophone(h,cn) = de.fdelaylti(4, predelay+maxdelay, predelay+element_delay)
+one_hydrophone(h,cn) = de.fdelaylti(4, predelay+maxdelay_n, predelay+element_delay)
 with {
     predelay = 2; // because of the allpass fractional delay, total delay must be >(order-1)/2
-    maxdelay      = ma.SR*glen/c * max(h, nElements-h-1) / nElements; // longest delay for each element
-    element_delay = ma.SR*glen/c * abs(cos(brg)) * index/nElements;
+    maxdelay = ma.SR*glen/c;
+    maxdelay_n    = maxdelay * (max(h, nElements-h-1) / nElements); // longest delay for each element
+    element_delay = maxdelay * abs(cos(brg)) * (index / nElements);
     index = h, nElements-h-1 : select2(cos(brg)<0); // flip the delay line when contact is aft of the beam
     brg = cbrg(cn) * ma.PI / 180; // contact bearing off the bow in rads
 };
@@ -57,7 +58,7 @@ compensator = si.bus(nElements) : par(n, nElements, stripline_delay(n)) :> _;
 stripline_delay(n) = de.sdelay(maxdelay,8,strip_time)
 with {
     maxdelay = ma.SR*glen/c;
-    strip_time = ma.SR*glen/c * abs(cos(brg)) * index/nElements;
+    strip_time = maxdelay * abs(cos(brg)) * index/nElements;
     index = nElements-n-1, n: select2(cos(brg)<0);
     brg = ghg_dial * ma.PI / 180;
 };
