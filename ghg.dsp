@@ -66,6 +66,18 @@ with {
 // For use with the Underwater Telegraph, a rectifier tube was added into the signal path according to the RN report on U-570
 rectifier = _ <: _ , abs : select2(hslider("Rectifier[style:radio{'Off':0;'On':1}]",0,0,1,1)) : _;
 
+// Noise with variable amplitude to simulate wave and wind noise from the surface
+wave_noise = (ba.db2linear(noise_constant_part)
+        + ba.db2linear(noise_variable_part)
+        * no.lfnoise(noise_wave_cutoff_hz)^2) // : hbargraph("Noise amplitude",0,0.2)
+        * no.pink_noise
+        : fi.lowpass(1,2500) : fi.highpass(1,1000)
+with {
+    noise_constant_part = -30;
+    noise_variable_part = -20;
+    noise_wave_cutoff_hz = 1;
+};
+
 // Misc UI elements
 // debug:
 //  : vgroup("",hbargraph("%n",0,200))
@@ -81,4 +93,4 @@ highpass_switch = _ <: _, fi.highpass(8,hplist) : select2(hplist != 501); // sel
 random_angle = (_+30)*169691%360-180;
 
 // Demonstration process configured for 6 sound sources, 2 outputs for stereo listening. 2nd order highpass represents the 
-process = si.bus(nContacts) : ghg : compensator : rectifier : fi.highpass(1,100) : highpass_switch : fi.lowpass(10,7000) <: _,_;
+process = si.bus(nContacts) : ghg : compensator + wave_noise : rectifier : fi.highpass(1,100) : highpass_switch : fi.lowpass(10,7000) <: _,_;
