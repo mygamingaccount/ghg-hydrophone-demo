@@ -62,6 +62,9 @@ with {
     brg = ghg_dial * ma.PI / 180;
 };
 
+// For use with the Underwater Telegraph, a rectifier tube was added into the signal path according to the RN report on U-505
+rectifier = _ <: _ , abs(_) : select2(hslider("Rectifier[style:radio{'Off':0;'On':1}]",0,0,1,1)) : _;
+
 // Misc UI elements
 // debug:
 //  : vgroup("",hbargraph("%n",0,200))
@@ -75,4 +78,4 @@ highpass_switch = _ <: _, fi.highpass(8,hplist) : select2(hplist != 501); // sel
 random_angle = (_+30)*169691%360-180;
 
 // Demonstration process configured for 6 sound sources, 2 outputs for stereo listening. 2nd order highpass represents the 
-process = si.bus(nContacts): ghg : compensator : highpass_switch : fi.highpass(2,100) : fi.lowpass(10,7000) <: _,_;
+process = si.bus(nContacts) : ghg : compensator : rectifier : fi.highpass(1,100) : highpass_switch : fi.lowpass(10,7000) <: _,_;
