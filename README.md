@@ -21,3 +21,7 @@ By the Foundation for German communication and related technologies:
 [Beschreibung einer Gruppenhorch-Anlage](https://www.cdvandt.org/GHG-AN301-Beschreibung.pdf)
 
 [SH7 compensator / GHG-AN301 assembly](https://www.cdvandt.org/GHG-AN301-Anlagen-bmp.pdf)
+
+U-Boat Archive:
+
+[U-570 / H.M.S Graph mentioning a rectifier valve in the signal path](http://www.uboatarchive.net/U-570/U-570BritishReport.htm)
