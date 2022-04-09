@@ -19,7 +19,6 @@ baffle_attenuation = ba.db2linear(-15);
 // Delay line emulating a GHG hydrophone group as it receives multiple simultaneous contacts
 ghg = par(cn, nContacts, contact(cn)) :> si.bus(nElements);
 
-// Hydrophone contact rotator - delays the incoming signal depending on the bearing using fractional sample delay
 // Hydrophones pick up sound from contacts between 20°-160° on each side. 10° linear rolloff is used here.
 // Linear equation given two points: ax+b = (y2-y1)/(x2-x1)*x + (x2y1-x1y2)/(x2-x1)
 contact(cn) = _ / nElements * baffle <: par(h, nElements, one_hydrophone(h,cn))
@@ -37,6 +36,7 @@ with {
     brg = cbrg(cn)*ma.signum(ghg_dial);
 };
 
+// Hydrophone contact rotator - delays the incoming signal depending on the bearing using fractional sample delay
 // Each hydrophone in the group is represented by a delay as the wavefront passes through the ship's hull
 // A smooth subsample-accuracy delay is used for this simulation
 one_hydrophone(h,cn) = de.fdelaylti(4, predelay+maxdelay, predelay+element_delay)
