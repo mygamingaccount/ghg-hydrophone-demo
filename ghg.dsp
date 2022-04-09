@@ -63,7 +63,7 @@ with {
 };
 
 // For use with the Underwater Telegraph, a rectifier tube was added into the signal path according to the RN report on U-505
-rectifier = _ <: _ , abs(_) : select2(hslider("Rectifier[style:radio{'Off':0;'On':1}]",0,0,1,1)) : _;
+rectifier = _ <: _ , abs : select2(hslider("Rectifier[style:radio{'Off':0;'On':1}]",0,0,1,1)) : _;
 
 // Misc UI elements
 // debug:
