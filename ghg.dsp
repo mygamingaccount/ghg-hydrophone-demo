@@ -62,7 +62,7 @@ with {
     brg = ghg_dial * ma.PI / 180;
 };
 
-// For use with the Underwater Telegraph, a rectifier tube was added into the signal path according to the RN report on U-505
+// For use with the Underwater Telegraph, a rectifier tube was added into the signal path according to the RN report on U-570
 rectifier = _ <: _ , abs : select2(hslider("Rectifier[style:radio{'Off':0;'On':1}]",0,0,1,1)) : _;
 
 // Misc UI elements
