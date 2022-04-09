@@ -6,8 +6,7 @@ Video demonstration:
 
 # Running the demo in your browser using the Faust IDE
 
-*  Open the [Faust IDE](https://faustide.grame.fr/)
-*  Paste the contents of [ghg.dsp](ghg.dsp) into the editor
+*  Open the demo file in the [Faust IDE](https://faustide.grame.fr/?code=https://raw.githubusercontent.com/mygamingaccount/ghg-hydrophone-demo/master/ghg.dsp)
 *  Load a 6 channel OGG Vorbis file into the Audio Input tab (Drag and drop to replace)
 
 The source file's audio streams will be placed at random bearings. Use the Bearing control as well as the Highpass filter to identify the position and the class of the contacts.
