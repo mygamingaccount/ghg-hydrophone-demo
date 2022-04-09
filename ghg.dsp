@@ -70,8 +70,7 @@ rectifier = _ <: _ , abs : select2(hslider("Rectifier[style:radio{'Off':0;'On':1
 wave_noise = (ba.db2linear(noise_constant_part)
         + ba.db2linear(noise_variable_part)
         * no.lfnoise(noise_wave_cutoff_hz)^2) // : hbargraph("Noise amplitude",0,0.2)
-        * no.pink_noise
-        : fi.lowpass(1,2500) : fi.highpass(1,1000)
+        * no.pink_noise : fi.lowpass(1,2500) : fi.highpass(1,1000)
 with {
     noise_constant_part = -30;
     noise_variable_part = -20;
@@ -87,7 +86,8 @@ cbrg(i) = random_angle(i);
 ghg_dial = hslider("Bearing[unit:°]",0,-180,180,1)
             + hslider("Fine[unit:°]",0,-5,5,0.01)
             : si.smoo
-            * (button("Port/Starboard")*-2+1);hplist = hslider("Highpass filter[style:radio{'-':501;'500 Hz':500;'1000 Hz':1000;'3000 Hz':3000;'6000 Hz':6000;'10000 Hz':10000}]",501,10,10000,1);
+            * (button("Port/Starboard")*-2+1);
+hplist = hslider("Highpass filter[style:radio{'-':501;'500 Hz':500;'1000 Hz':1000;'3000 Hz':3000;'6000 Hz':6000;'10000 Hz':10000}]",501,10,10000,1);
 highpass_switch = _ <: _, fi.highpass(8,hplist) : select2(hplist != 501); // select2 otherwise it pops when you change the highpass parameters from lowest
 // randomise the starting bearing of the contacts
 random_angle = (_+30)*169691%360-180;
