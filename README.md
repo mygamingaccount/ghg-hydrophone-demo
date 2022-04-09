@@ -6,7 +6,7 @@ Video demonstration:
 
 # Running the demo in your browser using the Faust IDE
 
-*  Open the demo file in the [Faust IDE](https://faustide.grame.fr/?code=https://raw.githubusercontent.com/mygamingaccount/ghg-hydrophone-demo/master/ghg.dsp)
+*  Open the demo file in the [Faust IDE](https://faustide.grame.fr/?code=https://raw.githubusercontent.com/mygamingaccount/ghg-hydrophone-demo/master/ghg.dsp) (ignore the microphone access prompt)
 *  Load a 6 channel OGG Vorbis file into the Audio Input tab (Drag and drop to replace)
 *  Click Ctrl+R to compile and run the demo
 
