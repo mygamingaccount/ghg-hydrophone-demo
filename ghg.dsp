@@ -98,7 +98,7 @@ hplist =
     );
 highpass_switch = _ <: _, fi.highpass(8,hplist) : select2(hplist != 501); // select2 otherwise it pops when you change the highpass parameters from lowest
 // randomise the starting bearing of the contacts
-random_angle = (_+30)*169691%360-180;
+random_angle = ((_+30)*169691%(360*13)-(180*13))/13;
 
 // Demonstration process configured for 6 sound sources, 2 outputs for stereo listening. 2nd order highpass represents the 
 process = si.bus(nContacts) : ghg : compensator + wave_noise : rectifier : fi.highpass(1,100) : highpass_switch : fi.lowpass(10,7000) <: _,_;
