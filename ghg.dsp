@@ -76,11 +76,8 @@ with {
     noise_wave_cutoff_hz = 1;
 };
 
-// Misc UI elements
-// debug:
-//  : vgroup("",hbargraph("%n",0,200))
-cbrg(i) = random_angle(i);
-//cbrg(i) = hslider("S%i[style:knob][unit:°]",random_angle(i),-180,180,0.5) : si.smoo; // slider for the contact bearings
+// Contact bearing
+cbrg(i) = hgroup("Contacts", vslider("S%i[style:knob]",random_angle(i),-180,180,0.001));
 
 ghg_dial =
     vgroup("Bearing",
