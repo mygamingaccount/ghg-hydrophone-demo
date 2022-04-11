@@ -30,7 +30,7 @@ with {
         (a2*brg)+b2        : select2((brg>=160) & (brg<170)),
         baffle_attenuation : select2(brg>=170);
     a1 = (1-baffle_attenuation)/10;
-    b1 = (20-10*baffle_attenuation)/10;
+    b1 = (20*baffle_attenuation-10)/10;
     a2 = (baffle_attenuation-1)/10;
     b2 = (170-160*baffle_attenuation)/10;
     brg = cbrg(cn)*ma.signum(ghg_dial);
