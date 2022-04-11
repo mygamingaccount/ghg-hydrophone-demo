@@ -36,12 +36,11 @@ with {
     brg = cbrg(cn)*ma.signum(ghg_dial);
 };
 
-// Hydrophone contact rotator - delays the incoming signal depending on the bearing using fractional sample delay
+// Hydrophone contact rotator - delays the incoming signal depending on the bearing using fractional delay
 // Each hydrophone in the group is represented by a delay as the wavefront passes through the ship's hull
-// A smooth subsample-accuracy delay is used for this simulation
-one_hydrophone(h,cn) = de.fdelaylti(4, predelay+maxdelay_n, predelay+element_delay)
+// fdelay used here is two delays whose lengths are n, n+1, interpolated, which provides excellent resuls
+one_hydrophone(h,cn) = de.fdelay(maxdelay_n, element_delay)
 with {
-    predelay = 2; // because of the allpass fractional delay, total delay must be >(order-1)/2
     maxdelay = ma.SR*glen/c;
     maxdelay_n    = maxdelay * (max(h, nElements-h-1) / nElements); // longest delay for each element
     element_delay = maxdelay * abs(cos(brg)) * (index / nElements);
@@ -49,13 +48,13 @@ with {
     brg = cbrg(cn) * ma.PI / 180; // contact bearing off the bow in rads
 };
 
-// This demonstration will be using a smoothed discrete delay line (sdelay) compensator.
+// Compensator created using a simple delay line
 // The Kriegsmarine stripline compensators used LC lowpass delay lines which had 17us group delay at DC.
 // At 48000Hz one sample gives us 20.83us delay. I expect the performance to be very similar.
 // TODO: Listening test at 58.8kHz sample rate to compare the performance of 17us vs 20.83us delays
 compensator = si.bus(nElements) : par(n, nElements, stripline_delay(n)) :> _;
 
-stripline_delay(n) = de.sdelay(maxdelay,8,strip_time)
+stripline_delay(n) = de.delay(maxdelay,strip_time)
 with {
     maxdelay = ma.SR*glen/c;
     strip_time = maxdelay * abs(cos(brg)) * index/nElements;
