@@ -92,11 +92,11 @@ ghg_dial =
 hplist =
     hgroup("Filters",
         hslider(
-            "Highpass[style:radio{'-':501;'500 Hz':500;'1000 Hz':1000;'3000 Hz':3000;'6000 Hz':6000;'10000 Hz':10000};]",
-            501,10,10000,1
+            "Highpass[style:radio{'-':3001;'500 Hz':500;'1000 Hz':1000;'3000 Hz':3000;'6000 Hz':6000;'10000 Hz':10000};]",
+            3001,10,10000,1
         )
     );
-highpass_switch = _ <: _, fi.highpass(8,hplist) : select2(hplist != 501); // select2 otherwise it pops when you change the highpass parameters from lowest
+highpass_switch = _ <: _, fi.highpass(8,hplist) : select2(hplist != 3001); // select2 otherwise it pops when you change the highpass parameters from lowest
 // randomise the starting bearing of the contacts
 random_angle = ((_+30)*169691%(360*13)-(180*13))/13;
 
